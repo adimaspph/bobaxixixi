@@ -83,10 +83,29 @@ public class BobaController {
             @ModelAttribute BobaTeaModel boba,
             Model model
     ){
+//        System.out.println(boba.getIdBoba());
+//        System.out.println(boba.getTopping().getName());
         boolean result = bobaService.updateBoba(boba);
 
-        if (result) model.addAttribute( "message", boba.getName() + " successfully updated!");
-        else model.addAttribute( "message", boba.getName() + " can't be updated because there still an open store that is selling it!");
+        if (result) {
+            model.addAttribute( "message", boba.getName() + " successfully updated!");
+        } else {
+            model.addAttribute( "message", boba.getName() + " can't be updated because there still an open store that is selling it!");
+        }
+//        System.out.println("Update " + result);
+        return "boba-message";
+    }
+
+    @PostMapping(value = ("/boba/delete/{idBoba}"))
+    public String deleteBoba(
+            @PathVariable Long idBoba,
+            Model model
+    ){
+        BobaTeaModel boba = bobaService.getBobaByIdBoba(idBoba);
+        boolean result = bobaService.deleteBoba(idBoba);
+
+        if (result) model.addAttribute( "message", boba.getName() + " is successfully deleted!");
+        else model.addAttribute( "message", boba.getName() + " can't be delete because there still an open store that is selling it!");
 
         return "boba-message";
     }
@@ -124,14 +143,14 @@ public class BobaController {
 
         if (boba.getListStore() != null) {
             for (StoreBobaModel storeBoba : boba.getListStore()) {
-                System.out.println(storeBoba.getIdStoreBoba());
+//                System.out.println(storeBoba.getIdStoreBoba());
                 storeBobaService.deleteStoreBoba(storeBoba);
             }
         }
         List<StoreModel> listStore = new ArrayList<>();
         for (StoreBobaModel storeBoba : bobaTemp.getListStore()) {
             if (storeBoba.getStore() != null) {
-                System.out.println(storeBoba.getStore().getName());
+//                System.out.println(storeBoba.getStore().getName());
                 listStore.add(storeBoba.getStore());
                 storeBoba.setBoba(boba);
                 storeBobaService.addStoreBoba(storeBoba);

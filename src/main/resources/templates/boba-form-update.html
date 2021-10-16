@@ -19,6 +19,7 @@
                 <br>
                 <form th:action="@{/boba/update}" th:object="${boba}" method="POST">
                     <input type="hidden" th:field="*{idBoba}" />
+                    <input type="hidden" th:field="*{listStore}" />
 
                     Boba Tea name : <br>
                     <input required class="form-control" type="text" name="name" th:value="*{name}"/>
@@ -54,7 +55,7 @@
 
                     Topping : <br>
                     <select th:field="*{topping}" class="form-control">
-                        <option th:each="topping : ${listTopping}" th:value="${topping.idTopping}" th:text="${topping.name}"></option>
+                        <option th:each="topp : ${listTopping}" th:value="${topp.idTopping}" th:text="${topp.name}"></option>
                     </select>
                     <br><br>
 

@@ -66,8 +66,10 @@ public class BobaServiceImpl implements BobaService{
         List<StoreBobaModel> listStoreBoba = boba.getListStore();
 
         if (listStoreBoba != null) {
-            if (listStoreBoba.size() > 0) {
-                return false;
+            for (StoreBobaModel storeboba : listStoreBoba) {
+                if (storeService.stillOpen(storeboba.getStore())) {
+                    return false;
+                }
             }
         }
 

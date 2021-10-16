@@ -20,6 +20,7 @@
                 <form th:action="@{/store/update}" th:object="${store}" method="POST">
                     <input type="hidden" th:field="*{idStore}" />
                     <input type="hidden" th:field="*{storeCode}" />
+                    <input type="hidden" th:field="*{listBoba}" />
 
                     Store name : <br>
                     <input required class="form-control" type="text" name="name" th:value="*{name}"/>

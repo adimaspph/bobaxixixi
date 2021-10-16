@@ -165,11 +165,11 @@ public class StoreController {
             Model model
     ){
         StoreModel store = storeService.getStoreByIdStore(idStore);
-        System.out.println(store.getListBoba());
+//        System.out.println(store.getListBoba());
         // Remove all store-boba relation
         if (store.getListBoba() != null) {
             for (StoreBobaModel storeBoba : store.getListBoba()) {
-                System.out.println(storeBoba.getIdStoreBoba());
+//                System.out.println(storeBoba.getIdStoreBoba());
                 storeBobaService.deleteStoreBoba(storeBoba);
             }
         }
@@ -177,7 +177,7 @@ public class StoreController {
         // Assign checked store-boba relation
         for (StoreBobaModel storeBoba : storeTemp.getListBoba()) {
             if (storeBoba.getBoba() != null) {
-                System.out.println(storeBoba.getBoba().getName());
+//                System.out.println(storeBoba.getBoba().getName());
                 listBoba.add(storeBoba.getBoba());
                 storeBoba.setStore(store);
                 storeBobaService.addStoreBoba(storeBoba);
