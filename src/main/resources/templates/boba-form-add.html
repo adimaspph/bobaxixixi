@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Boba Tea</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 class="text-center font-weight-bold">Add New Boba Tea</h2>
+                <br>
+                <form th:action="@{/boba/add}" th:object="${boba}" method="POST">
+                    Boba Tea name : <br>
+                    <input required class="form-control" type="text" name="name" th:value="*{name}"/>
+                    <br><br>
+
+                    Price : <br>
+                    <input required class="form-control" type="number" name="price" th:value="*{price}"/>
+                    <br><br>
+
+                    Size : <br>
+                    <select th:field="*{size}" class="form-control">
+                        <option value="1">S</option>
+                        <option value="2">M</option>
+                        <option value="3">L</option>
+                    </select>
+                    <br><br>
+
+                    Sugar Level : <br>
+                    <select th:field="*{sugarLevel}" class="form-control">
+                        <option value="1">Less</option>
+                        <option value="2">Normal</option>
+                        <option value="3">Extra</option>
+                    </select>
+                    <br><br>
+
+                    Ice Level : <br>
+                    <select th:field="*{iceLevel}" class="form-control">
+                        <option value="1">Less</option>
+                        <option value="2">Normal</option>
+                        <option value="3">Extra</option>
+                    </select>
+                    <br><br>
+
+                    Topping : <br>
+                    <select th:field="*{topping}" class="form-control">
+                        <option th:value="null" th:text="'Tidak ada topping'"></option>
+                        <option th:each="topping : ${listTopping}" th:value="${topping.idTopping}" th:text="${topping.name}"></option>
+                    </select>
+                    <br><br>
+
+                    <div class="col-4">
+                        <a class="btn btn-outline-dark" href="/boba">Cancel</a>
+                        <button class="btn btn-primary" name="save" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

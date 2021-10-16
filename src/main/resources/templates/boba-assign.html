@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Berhasil</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 class="text-center font-weight-bold" th:text="'Stores Successfully Updated For Boba Tea ' + ${boba.name} + '!'"></h2>
+                <br>
+                <h4 class="text-center">List of Store</h4>
+                <br>
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Store Code</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Operational Hour</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="store, iterationStatus : ${listStore}"
+                        th:style="${iterationStatus.even} ? 'font-weigth:bold;'">
+                        <td th:text="${store.storeCode}"></td>
+                        <td th:text="${store.name}"></td>
+                        <td th:text="${store.address}"></td>
+                        <td th:text="${store.openHour} + ' - ' + ${store.closeHour}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <a class="text-center text-warning" th:href="@{/boba}"><-- Back to List of Boba Tea</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

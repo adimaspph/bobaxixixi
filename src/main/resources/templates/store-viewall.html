@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Store</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container rounded-lg bg-white">
+    <br>
+    <h2 class="text-center font-weight-bold">List of Store</h2>
+    <br>
+    <div class="col">
+<!--        <div>-->
+<!--            <a class="btn btn-warning" th:href="@{/store/add}">+ Add Store</a>-->
+<!--        </div>-->
+        <form th:action="@{/store/add}" th:object="${store}" method="POST">
+            <button class="btn btn-warning" name="form" type="submit">+ Add Store</button>
+        </form>
+        <br>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>Store Code</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Operational Hour</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="store, iterationStatus : ${listStore}"
+                th:style="${iterationStatus.even} ? 'font-weigth:bold;'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${store.storeCode}"></td>
+                <td th:text="${store.name}"></td>
+                <td th:text="${store.address}"></td>
+                <td th:text="${store.openHour} + ' - ' + ${store.closeHour}"></td>
+                <td>
+                    <form th:action="@{/store/delete/} + ${store.idStore}" th:method="POST">
+                        <a class="btn btn-primary" th:href="@{/store/} + ${store.idStore}">View</a>
+                        <a class="btn btn-warning" th:href="@{/store/update/} + ${store.idStore}">Update</a>
+                        <button class="btn btn-danger" name="form" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+</div>
+</body>
+</html>

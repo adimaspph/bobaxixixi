@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Store</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 class="text-center font-weight-bold">Add New Store</h2>
+                <br>
+                <form th:action="@{/store/add}" th:object="${store}" method="POST">
+                    Store name : <br>
+                    <input required class="form-control" type="text" name="name" th:value="*{name}"/>
+                    <br><br>
+
+                    Manager : <br>
+                    <select th:field="*{manager}" class="form-control">
+                        <option th:each="manager : ${listManager}" th:value="${manager.idManager}" th:text="${manager.fullName}"></option>
+                    </select>
+                    <br><br>
+
+                    Address: <br>
+                    <input required class="form-control" type="text" name="address" th:value="*{address}"/>
+                    <br><br>
+
+                    Open Hour : <br>
+                    <input required class="form-control" type="time" name="openHour" th:value="*{openHour}" />
+                    <br><br>
+
+                    Close Hour : <br>
+                    <input required class="form-control" type="time" name="closeHour" th:value="*{closeHour}" />
+                    <br><br>
+
+                    <div class="col-4">
+                        <a class="btn btn-outline-dark" href="/store">Cancel</a>
+                        <button class="btn btn-primary" name="save" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Boba</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container rounded-lg bg-white">
+    <br>
+    <h2 class="text-center font-weight-bold">List of Boba Tea</h2>
+    <br>
+    <div th:if="*{listBoba.size() != 99}" class="col">
+
+        <form th:action="@{/boba/add}" th:object="${boba}" method="GET">
+            <button class="btn btn-warning" name="form" type="submit">+ Add Boba Tea</button>
+        </form>
+        <br>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Ice</th>
+                <th>Sugar</th>
+                <th>Topping</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boba, iterationStatus : ${listBoba}"
+                th:style="${iterationStatus.even} ? 'font-weigth:bold;'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${boba.name}"></td>
+                <td th:text="'Rp ' + ${boba.price}"></td>
+                <td th:if="${boba.size} == 1">S</td>
+                <td th:if="${boba.size} == 2">M</td>
+                <td th:if="${boba.size} == 3">L</td>
+                <td th:if="${boba.iceLevel} == 1">Less</td>
+                <td th:if="${boba.iceLevel} == 2">Normal</td>
+                <td th:if="${boba.iceLevel} == 3">Extra</td>
+                <td th:if="${boba.sugarLevel} == 1">Less</td>
+                <td th:if="${boba.sugarLevel} == 2">Normal</td>
+                <td th:if="${boba.sugarLevel} == 3">Extra</td>
+                <td th:if="${boba.topping} == null" >Tidak ada topping</td>
+                <td th:if="${boba.topping} != null" th:text="${boba.topping.name}"></td>
+                <td>
+                    <form th:action="@{/boba/delete/} + ${boba.idBoba}" th:method="POST">
+                        <a class="btn btn-primary" th:href="@{/boba/} + ${boba.idBoba} + @{/assign-store}">Assign</a>
+                        <a class="btn btn-warning" th:href="@{/boba/update/} + ${boba.idBoba}">Update</a>
+                        <button class="btn btn-danger" name="form" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+</div>
+</body>
+</html>

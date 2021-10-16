@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+
+<body style="background-color: #ffedd9">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 class="text-center font-weight-bold" th:text="'Store Detail'"></h2>
+                <br>
+                <table class="table">
+                    <tr>
+                        <td><b>Store Name</b></td>
+                        <td th:text="${store.name}"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Address</b></td>
+                        <td th:text="${store.address}"></td>
+                    </tr>
+                    <tr>
+                        <td ><b>Open Hour</b></td>
+                        <td th:text="${store.openHour}"></td>
+                    </tr>
+                    <tr>
+                        <td ><b>Close Hour</b></td>
+                        <td th:text="${store.closeHour}"></td>
+                    </tr>
+                    <tr>
+                        <td ><b>Manger</b></td>
+                        <td th:text="${store.manager.fullName}"></td>
+                    </tr>
+                    <tr>
+                        <td ><b>Store Code</b></td>
+                        <td th:text="${store.storeCode}"></td>
+                    </tr>
+                </table>
+                <br><br>
+                <h4>List of Boba Tea</h4><br>
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Topping</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="boba, iterationStatus : ${listBoba}"
+                        th:style="${iterationStatus.even} ? 'font-weigth:bold;'">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${boba.name}"></td>
+                        <td th:if="${boba.topping} == null" >Tidak ada topping</td>
+                        <td th:if="${boba.topping} != null" th:text="${boba.topping.name}"></td>
+                        <td th:text="${boba.price}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-warning" th:href="@{/store/} + ${store.idStore} + @{/assign-boba}">Add Boba to Store</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
